@@ -59,6 +59,24 @@
     /*Compass: https://thenounproject.com/search/?q=compass&i=592352*/
   </style>
   <script>
+    const arrow = document.querySelector(".arrow");
+    const speed = document.querySelector(".speed-value");
+    const units = document.querySelector(".units");
+    navigator.geolocation.watchPosition((data) => {
+      console.log(data);
+      if (data.coords.speed) {
+        speed.textContent = data.coords.speed;
+        arrow.style.transform =`rotate${data.coords.heading}deg)`;
+        units.style.display = "block";
+      } else {
+        speed.textContent = "Please start moving!";
+        units.style.display = "none";
+      }
+            
+    }, (err) => {
+      console.log(err);
+      alert('You must allow location for this app to work!');
+    })
   </script>
 </body>
 </html>
